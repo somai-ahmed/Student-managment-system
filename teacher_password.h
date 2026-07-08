@@ -8,15 +8,15 @@
 #include<stdio.h>
 #include <string.h>
 #include <stdlib.h>
-struct pa
+typedef struct paStruct
 {
     char pass[7];
-};
+}paStruct,*pa;
 
 int  infile()
 {
-    struct pa *password;
-    //password=(struct pa *)malloc(sizeof(struct pa));
+    pa password;
+    //password=(struct pa *)malloc(sizeof(struct pa)); /*no need , you must declaring a struct pointer to avoid the big complexity*/
     char passw[7];
     char pass1[7];
     char pass2[7];
@@ -24,6 +24,9 @@ int  infile()
     char path[50];
     FILE *fp;
     int num;
+	
+	/*advice to make a do while loop to enforce user to make a good number with the error message*/
+	
     printf("如果您已经修改过密码,请按1!没有修改过,请按2\n\n");
     scanf("%d",&num);
     if(num==1)
@@ -90,10 +93,10 @@ int  outfile()
         fp=fopen(p,"r");
         i++;
     }while(fp==NULL);
-    struct pa *napath;
-    napath=(struct pa *)malloc(sizeof(struct pa));
+    pa napath;
+    napath=(*pa)malloc(sizeof(paStruct));
     printf("lalala");
-    while(fread(napath,sizeof(struct pa),1,fp)!=0)
+    while(fread(napath,sizeof(paStruct),1,fp)!=0)
     {
         int i=1;
         for(i=1;i<=3;i++)
